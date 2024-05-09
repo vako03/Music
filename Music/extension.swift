@@ -5,9 +5,17 @@
 //  Created by valeri mekhashishvili on 10.05.24.
 //
 
-import Foundation
 import UIKit
 
+
+
+extension UIImageView {
+    convenience init(image: UIImage?) {
+        self.init()
+        self.image = image
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+}
 
 extension UILabel {
     convenience init(text: String, fontSize: CGFloat, color: UIColor) {
