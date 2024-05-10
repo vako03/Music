@@ -8,7 +8,6 @@
 import UIKit
 
 class CenteredTabBar: UITabBar {
-    
     private var selectedButton: UIControl?
     
     override func layoutSubviews() {
@@ -24,7 +23,7 @@ class CenteredTabBar: UITabBar {
             
             let button = view as! UIControl
             button.addTarget(self, action: #selector(tabBarItemTapped(sender:)), for: .touchUpInside)
-            button.tag = index // Assign index as tag for identification
+            button.tag = index
             
             if button.isSelected {
                 selectedButton = button
@@ -44,9 +43,6 @@ class CenteredTabBar: UITabBar {
                 view.transform = .identity
             }
         }
-        
-        // Handle tab bar item selection here...
-        // Example: You can switch views or perform other actions based on the selected tab bar item.
         print("Tab bar item tapped: \(sender.tag)")
     }
     
@@ -56,4 +52,3 @@ class CenteredTabBar: UITabBar {
         }
     }
 }
-

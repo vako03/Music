@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 extension UIImageView {
     convenience init(image: UIImage?) {
         self.init()
@@ -40,5 +38,3 @@ extension UIButton {
         return button
     }
 }
-
-
