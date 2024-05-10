@@ -208,7 +208,7 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             if minimize {
                 // Scale down the cover image
-                self.coverImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                self.coverImage.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
             } else {
                 // Restore original size of the cover image
                 self.coverImage.transform = .identity
@@ -217,19 +217,43 @@ class ViewController: UIViewController {
     }
     
     func showLoadingAnimation(completion: @escaping () -> Void) {
-        let loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        loadingView.backgroundColor = .white
-        loadingView.layer.cornerRadius = 25
-        loadingView.center = view.center
+        let loaderSize: CGFloat = 50 // Adjust loader size as needed
+        let loaderFrame = CGRect(x: (view.bounds.width - loaderSize) / 2, y: (view.bounds.height - loaderSize) / 2, width: loaderSize, height: loaderSize)
+        
+        let loadingView = UIView(frame: loaderFrame)
+        loadingView.backgroundColor = .clear
         view.addSubview(loadingView)
         
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator.center = CGPoint(x: loadingView.bounds.midX, y: loadingView.bounds.midY)
-        activityIndicator.startAnimating()
-        loadingView.addSubview(activityIndicator)
+        let lineWidth: CGFloat = 4.0
+        let radius = min(loadingView.bounds.width, loadingView.bounds.height) / 2 - lineWidth / 2
+        let circularPath = UIBezierPath(arcCenter: CGPoint(x: loadingView.bounds.midX, y: loadingView.bounds.midY), radius: radius, startAngle: -CGFloat.pi / 2, endAngle: 3 * CGFloat.pi / 2, clockwise: true)
         
-        // Hide loading animation after 0.5 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        let trackLayer = CAShapeLayer()
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor.white.withAlphaComponent(0.5).cgColor // Set track color
+        trackLayer.lineWidth = lineWidth
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineCap = .round
+        loadingView.layer.addSublayer(trackLayer)
+        
+        let progressLayer = CAShapeLayer()
+        progressLayer.path = circularPath.cgPath
+        progressLayer.strokeColor = UIColor.blue.cgColor // Set progress color
+        progressLayer.lineWidth = lineWidth
+        progressLayer.fillColor = UIColor.clear.cgColor
+        progressLayer.lineCap = .round
+        progressLayer.strokeEnd = 0
+        loadingView.layer.addSublayer(progressLayer)
+        
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        basicAnimation.toValue = 1
+        basicAnimation.duration = 1.5 // Set animation duration
+        basicAnimation.fillMode = .forwards
+        basicAnimation.isRemovedOnCompletion = false
+        progressLayer.add(basicAnimation, forKey: "loadingAnimation")
+        
+        // Hide loading animation after 1.5 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             UIView.animate(withDuration: 0.3, animations: {
                 loadingView.alpha = 0
             }) { _ in
@@ -238,6 +262,8 @@ class ViewController: UIViewController {
             }
         }
     }
+
+
 
     
     func setupTabBar() {
@@ -281,7 +307,6 @@ class ViewController: UIViewController {
 #Preview {
     ViewController()
 }
-
 
 #Preview {
     ViewController()
