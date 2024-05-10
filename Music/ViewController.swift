@@ -164,11 +164,14 @@ class ViewController: UIViewController {
                 playButton.setImage(UIImage(named: "pause"), for: .normal)
             }
             self.isPaused = false
-            self.animateCoverImage(minimize: false) // Restore cover image
             
             // Show loading animation only if the timer was previously paused
             if self.timePaused > 0 {
-                showLoadingAnimation()
+                showLoadingAnimation {
+                    self.animateCoverImage(minimize: false) // Restore cover image
+                }
+            } else {
+                self.animateCoverImage(minimize: false) // Restore cover image
             }
         } else { // If timer is running, stop it
             self.timePaused = Date().timeIntervalSinceReferenceDate - self.startTime
@@ -213,7 +216,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func showLoadingAnimation() {
+    func showLoadingAnimation(completion: @escaping () -> Void) {
         let loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         loadingView.backgroundColor = .white
         loadingView.layer.cornerRadius = 25
@@ -227,9 +230,15 @@ class ViewController: UIViewController {
         
         // Hide loading animation after 0.5 seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            loadingView.removeFromSuperview()
+            UIView.animate(withDuration: 0.3, animations: {
+                loadingView.alpha = 0
+            }) { _ in
+                loadingView.removeFromSuperview()
+                completion() // Call completion block when animation is finished
+            }
         }
     }
+
     
     func setupTabBar() {
         // Create the tab bar
@@ -266,6 +275,11 @@ class ViewController: UIViewController {
             tabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0) // Distance from bottom
         ])
     }
+}
+
+
+#Preview {
+    ViewController()
 }
 
 
