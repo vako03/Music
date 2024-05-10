@@ -308,6 +308,3 @@ class ViewController: UIViewController {
     ViewController()
 }
 
-#Preview {
-    ViewController()
-}
