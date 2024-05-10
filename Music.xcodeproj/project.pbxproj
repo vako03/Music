@@ -13,6 +13,7 @@
 		1A49FED82BED6EBD00C57256 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A49FED72BED6EBD00C57256 /* Assets.xcassets */; };
 		1A49FEDB2BED6EBD00C57256 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1A49FEDA2BED6EBD00C57256 /* Base */; };
 		1A49FEE32BED783100C57256 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49FEE22BED783100C57256 /* extension.swift */; };
+		1A49FEE52BED9FD500C57256 /* CenteredTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49FEE42BED9FD500C57256 /* CenteredTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1A49FEDA2BED6EBD00C57256 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A49FEDC2BED6EBD00C57256 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A49FEE22BED783100C57256 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		1A49FEE42BED9FD500C57256 /* CenteredTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				1A49FED92BED6EBD00C57256 /* LaunchScreen.storyboard */,
 				1A49FEDC2BED6EBD00C57256 /* Info.plist */,
 				1A49FEE22BED783100C57256 /* extension.swift */,
+				1A49FEE42BED9FD500C57256 /* CenteredTabBar.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A49FED32BED6EBB00C57256 /* ViewController.swift in Sources */,
+				1A49FEE52BED9FD500C57256 /* CenteredTabBar.swift in Sources */,
 				1A49FECF2BED6EBB00C57256 /* AppDelegate.swift in Sources */,
 				1A49FED12BED6EBB00C57256 /* SceneDelegate.swift in Sources */,
 				1A49FEE32BED783100C57256 /* extension.swift in Sources */,

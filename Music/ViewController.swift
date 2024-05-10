@@ -24,17 +24,20 @@ class ViewController: UIViewController {
         return progressBar
     }()
     
-    let buttonsCover = UIImageView(image: UIImage(named: "buttonCover"))
+//    let buttonsCover = UIImageView(image: UIImage(named: "buttonCover"))
     let backgroundColor = UIColor(red: 22/255, green: 20/255, blue: 17/255, alpha: 1.0)
 
     let stackView = UIStackView()
+    let tabBar = UITabBar()
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = backgroundColor
         setupUI()
         addButtonsToStack()
-
+        setupTabBar()
     }
     
    func setupUI() {
@@ -43,7 +46,7 @@ class ViewController: UIViewController {
        view.addSubview(soLongLabel)
        view.addSubview(taylorSwiftLabel)
        view.addSubview(progressBar)
-       view.addSubview(buttonsCover)
+//       view.addSubview(buttonsCover)
        containerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(containerView)
 
@@ -52,6 +55,8 @@ class ViewController: UIViewController {
        stackView.translatesAutoresizingMaskIntoConstraints = false
        view.addSubview(stackView)
        stackView.backgroundColor = nil
+       tabBar.translatesAutoresizingMaskIntoConstraints = false
+               view.addSubview(tabBar)
        
        
        NSLayoutConstraint.activate([
@@ -79,8 +84,10 @@ class ViewController: UIViewController {
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         
-        buttonsCover.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-        buttonsCover.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+        tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
             ])
      
         
@@ -101,6 +108,27 @@ class ViewController: UIViewController {
             stackView.addArrangedSubview(button)
         }
     }
+    
+    func setupTabBar() {
+        let tabBarItem1 = UITabBarItem(title: nil, image: UIImage(named: "home"), selectedImage: nil)
+                let tabBarItem2 = UITabBarItem(title: nil, image: UIImage(named: "Group 160"), selectedImage: nil)
+                let tabBarItem3 = UITabBarItem(title: nil, image: UIImage(named: "heart"), selectedImage: nil)
+                
+                // Assign items to the tab bar
+                tabBar.setItems([tabBarItem1, tabBarItem2, tabBarItem3], animated: false)
+                
+                // Customize tab bar appearance
+                tabBar.layer.cornerRadius = 20 // Set corner radius
+                tabBar.layer.borderWidth = 1.0 // Set border width
+                tabBar.layer.borderColor = UIColor.black.cgColor // Set border color
+                tabBar.clipsToBounds = true // Clip to bounds
+                
+                // Add height constraint to the tab bar
+                tabBar.heightAnchor.constraint(equalToConstant: 80).isActive = true // Adjust this value as needed
+                
+                // Add tab bar to view
+    }
+
 
 }
 
