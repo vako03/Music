@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     private var duration: TimeInterval = 120 // 2 minutes in seconds
     private var countdownLabelLeading: UILabel!
     private var countdownLabelTrailing: UILabel!
+    private var timePaused: TimeInterval = 0
+    private var isPaused: Bool = false
     
     // Add progress bar
     private let progressBar: UIProgressView = {
@@ -56,9 +58,6 @@ class ViewController: UIViewController {
         stackView.spacing = 40
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
-        stackView.backgroundColor = nil
-        tabBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tabBar)
         
         // Countdown labels setup
         countdownLabelLeading = UILabel()
@@ -75,7 +74,7 @@ class ViewController: UIViewController {
         
         // Set constraints
         NSLayoutConstraint.activate([
-            coverImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            coverImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
             coverImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
             coverImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
             
@@ -128,34 +127,56 @@ class ViewController: UIViewController {
         let buttonIcons: [UIImage] = [
             UIImage(named: "shuffle")!,
             UIImage(named: "skip-back")!,
-            UIImage(named: "Ellipse 26")!, // The button you want to add action to
+            UIImage(named: "play")!, // The button you want to add action to
             UIImage(named: "skip-forward")!,
             UIImage(named: "repeat")!
         ]
         
         for (index, icon) in buttonIcons.enumerated() {
-            let button = UIButton.createCustomButton(icon: icon)
-            if index == 2 { // Index of "Ellipse 26" button
-                button.addTarget(self, action: #selector(startProgressBar), for: .touchUpInside)
+            let button = UIButton()
+            button.setImage(icon, for: .normal)
+            button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+            if index == 2 { // Index of play button
+                button.setBackgroundImage(UIImage(named: "Ellipse"), for: .normal)
             }
             stackView.addArrangedSubview(button)
         }
     }
     
-    @objc func startProgressBar() {
-        if timer == nil { // If timer is not running, start it or resume from paused progress
-            if progressBar.progress >= 1 { // If progress is complete, reset progress to 0
-                progressBar.progress = 0
-                startTime = Date().timeIntervalSinceReferenceDate
-            } else { // If progress is not complete, resume from paused progress
-                startTime = Date().timeIntervalSinceReferenceDate - Double(progressBar.progress) * duration
+    @objc func buttonTapped(_ sender: UIButton) {
+        // Assuming play/pause button is at index 2
+        if let playButton = stackView.arrangedSubviews[2] as? UIButton {
+            if sender == playButton {
+                if isPaused {
+                    resumeTimer()
+                } else {
+                    startStopTimer()
+                }
             }
-            // Start the timer
+        }
+    }
+    
+    func startStopTimer() {
+        if timer == nil { // If timer is not running, start it
+            startTime = Date().timeIntervalSinceReferenceDate - timePaused
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
-        } else { // If timer is running, pause it
+            if let playButton = stackView.arrangedSubviews[2] as? UIButton {
+                playButton.setImage(UIImage(named: "pause"), for: .normal)
+            }
+            isPaused = false
+        } else { // If timer is running, stop it
+            timePaused = Date().timeIntervalSinceReferenceDate - startTime
             timer?.invalidate()
             timer = nil
+            if let playButton = stackView.arrangedSubviews[2] as? UIButton {
+                playButton.setImage(UIImage(named: "play"), for: .normal)
+            }
+            isPaused = true
         }
+    }
+    
+    func resumeTimer() {
+        startStopTimer()
     }
     
     @objc func updateProgress() {
@@ -181,17 +202,22 @@ class ViewController: UIViewController {
         
         // Define tab bar item images
         let tabBarItem1 = UITabBarItem(title: nil, image: UIImage(named: "home"), selectedImage: nil)
-        let tabBarItem2 = UITabBarItem(title: nil, image: UIImage(named: "Group 160"), selectedImage: nil)
+        let tabBarItem2 = UITabBarItem(title: nil, image: UIImage(named: "music"), selectedImage: nil)
         let tabBarItem3 = UITabBarItem(title: nil, image: UIImage(named: "heart"), selectedImage: nil)
         
         // Assign items to the tab bar
         tabBar.setItems([tabBarItem1, tabBarItem2, tabBarItem3], animated: false)
         
         // Customize tab bar appearance
+        tabBar.barTintColor = UIColor(red: 10/255, green: 9/255, blue: 30/255, alpha: 1.0) // Background color
         tabBar.layer.cornerRadius = 20
-        tabBar.layer.borderWidth = 1.0
-        tabBar.layer.borderColor = UIColor.black.cgColor
         tabBar.clipsToBounds = true
+        
+        // Apply shadow to tab bar
+        tabBar.layer.shadowColor = UIColor(red: 168/255, green: 186/255, blue: 207/255, alpha: 1.0).cgColor
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        tabBar.layer.shadowOpacity = 1.0
+        tabBar.layer.shadowRadius = 10
         
         // Add height constraint to the tab bar
         tabBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
