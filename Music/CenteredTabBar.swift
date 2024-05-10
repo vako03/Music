@@ -12,7 +12,6 @@ class CenteredTabBar: UITabBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // Center the buttons vertically within the tab bar
         let centerY = bounds.height / 2
         
         var centerX: CGFloat = 0
