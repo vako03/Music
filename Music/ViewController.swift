@@ -158,34 +158,27 @@ class ViewController: UIViewController {
     
     func startStopTimer() {
         if timer == nil { // If timer is not running, start it
-            startTime = Date().timeIntervalSinceReferenceDate - timePaused
-            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
-            if let playButton = stackView.arrangedSubviews[2] as? UIButton {
+            self.startTime = Date().timeIntervalSinceReferenceDate - self.timePaused
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateProgress), userInfo: nil, repeats: true)
+            if let playButton = self.stackView.arrangedSubviews[2] as? UIButton {
                 playButton.setImage(UIImage(named: "pause"), for: .normal)
             }
-            isPaused = false
-            animateCoverImage(minimize: false) // Restore cover image
+            self.isPaused = false
+            self.animateCoverImage(minimize: false) // Restore cover image
+            
+            // Show loading animation only if the timer was previously paused
+            if self.timePaused > 0 {
+                showLoadingAnimation()
+            }
         } else { // If timer is running, stop it
-            timePaused = Date().timeIntervalSinceReferenceDate - startTime
-            timer?.invalidate()
-            timer = nil
-            if let playButton = stackView.arrangedSubviews[2] as? UIButton {
+            self.timePaused = Date().timeIntervalSinceReferenceDate - self.startTime
+            self.timer?.invalidate()
+            self.timer = nil
+            if let playButton = self.stackView.arrangedSubviews[2] as? UIButton {
                 playButton.setImage(UIImage(named: "play"), for: .normal)
             }
-            isPaused = true
-            animateCoverImage(minimize: true) // Minimize cover image
-        }
-    }
-
-    func animateCoverImage(minimize: Bool) {
-        UIView.animate(withDuration: 0.3) {
-            if minimize {
-                // Scale down the cover image
-                self.coverImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-            } else {
-                // Restore original size of the cover image
-                self.coverImage.transform = .identity
-            }
+            self.isPaused = true
+            self.animateCoverImage(minimize: true) // Minimize cover image
         }
     }
 
@@ -206,6 +199,36 @@ class ViewController: UIViewController {
         }
         
         updateCountdownLabels()
+    }
+    
+    func animateCoverImage(minimize: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            if minimize {
+                // Scale down the cover image
+                self.coverImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            } else {
+                // Restore original size of the cover image
+                self.coverImage.transform = .identity
+            }
+        }
+    }
+    
+    func showLoadingAnimation() {
+        let loadingView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        loadingView.backgroundColor = .white
+        loadingView.layer.cornerRadius = 25
+        loadingView.center = view.center
+        view.addSubview(loadingView)
+        
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.center = CGPoint(x: loadingView.bounds.midX, y: loadingView.bounds.midY)
+        activityIndicator.startAnimating()
+        loadingView.addSubview(activityIndicator)
+        
+        // Hide loading animation after 0.5 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            loadingView.removeFromSuperview()
+        }
     }
     
     func setupTabBar() {
@@ -244,6 +267,7 @@ class ViewController: UIViewController {
         ])
     }
 }
+
 
 #Preview {
     ViewController()
