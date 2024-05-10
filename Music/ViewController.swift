@@ -164,6 +164,7 @@ class ViewController: UIViewController {
                 playButton.setImage(UIImage(named: "pause"), for: .normal)
             }
             isPaused = false
+            animateCoverImage(minimize: false) // Restore cover image
         } else { // If timer is running, stop it
             timePaused = Date().timeIntervalSinceReferenceDate - startTime
             timer?.invalidate()
@@ -172,9 +173,22 @@ class ViewController: UIViewController {
                 playButton.setImage(UIImage(named: "play"), for: .normal)
             }
             isPaused = true
+            animateCoverImage(minimize: true) // Minimize cover image
         }
     }
-    
+
+    func animateCoverImage(minimize: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            if minimize {
+                // Scale down the cover image
+                self.coverImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            } else {
+                // Restore original size of the cover image
+                self.coverImage.transform = .identity
+            }
+        }
+    }
+
     func resumeTimer() {
         startStopTimer()
     }
