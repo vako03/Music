@@ -13,9 +13,9 @@
 		1A49FED82BED6EBD00C57256 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A49FED72BED6EBD00C57256 /* Assets.xcassets */; };
 		1A49FEDB2BED6EBD00C57256 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 1A49FEDA2BED6EBD00C57256 /* Base */; };
 		1A49FEE32BED783100C57256 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49FEE22BED783100C57256 /* extension.swift */; };
-		1A49FEE52BED9FD500C57256 /* CenteredTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49FEE42BED9FD500C57256 /* CenteredTabBar.swift */; };
 		1A49FEEB2BEEA6C500C57256 /* ViewController+TimerContro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49FEEA2BEEA6C500C57256 /* ViewController+TimerContro.swift */; };
 		1A49FEFA2BEF04F600C57256 /* TimerControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49FEF92BEF04F600C57256 /* TimerControlDelegate.swift */; };
+		1A49FF012BEF83D500C57256 /* CenteredTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49FF002BEF83D500C57256 /* CenteredTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +27,9 @@
 		1A49FEDA2BED6EBD00C57256 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A49FEDC2BED6EBD00C57256 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A49FEE22BED783100C57256 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
-		1A49FEE42BED9FD500C57256 /* CenteredTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CenteredTabBar.swift; path = ../CenteredTabBar.swift; sourceTree = "<group>"; };
 		1A49FEEA2BEEA6C500C57256 /* ViewController+TimerContro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+TimerContro.swift"; sourceTree = "<group>"; };
 		1A49FEF92BEF04F600C57256 /* TimerControlDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerControlDelegate.swift; sourceTree = "<group>"; };
+		1A49FF002BEF83D500C57256 /* CenteredTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 				1A49FEF32BEEBD5800C57256 /* App */,
 				1A49FEEC2BEEA6F400C57256 /* ViewController */,
 				1A49FEED2BEEA70300C57256 /* Extensions */,
-				1A49FEEE2BEEA71200C57256 /* CustomViews */,
+				1A49FEFF2BEF83BB00C57256 /* CustomViews */,
 				1A49FEF42BEEBD7500C57256 /* Resource */,
 			);
 			path = Music;
@@ -89,14 +89,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		1A49FEEE2BEEA71200C57256 /* CustomViews */ = {
-			isa = PBXGroup;
-			children = (
-				1A49FEE42BED9FD500C57256 /* CenteredTabBar.swift */,
-			);
-			path = CustomViews;
-			sourceTree = "<group>";
-		};
 		1A49FEF32BEEBD5800C57256 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +106,14 @@
 				1A49FEDC2BED6EBD00C57256 /* Info.plist */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		1A49FEFF2BEF83BB00C57256 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				1A49FF002BEF83D500C57256 /* CenteredTabBar.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,11 +187,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A49FED32BED6EBB00C57256 /* ViewController.swift in Sources */,
-				1A49FEE52BED9FD500C57256 /* CenteredTabBar.swift in Sources */,
 				1A49FEFA2BEF04F600C57256 /* TimerControlDelegate.swift in Sources */,
 				1A49FECF2BED6EBB00C57256 /* AppDelegate.swift in Sources */,
 				1A49FED12BED6EBB00C57256 /* SceneDelegate.swift in Sources */,
 				1A49FEE32BED783100C57256 /* extension.swift in Sources */,
+				1A49FF012BEF83D500C57256 /* CenteredTabBar.swift in Sources */,
 				1A49FEEB2BEEA6C500C57256 /* ViewController+TimerContro.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
